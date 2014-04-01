@@ -1,0 +1,43 @@
+{% extends "staticpage/generic.html"  %}
+
+{% block pageheadingtext %}About YCP{% endblock %}
+
+{% block sidebarmenu %}
+<li><a href="{% url 'about' %}"
+       {% if currentnav == 'about' %}class="current"{% endif %}>About</a></li>
+<li><a href="{% url 'contact' %}" 
+       {% if currentnav == 'contact' %}class="current"{% endif %}>
+    Contact</a></li>
+<li><a href="{% url 'quotes' %}" 
+       {% if currentnav == 'quotes' %}class="current"{% endif %}>
+    Power Quotes</a></li>
+{% endblock %}
+
+{% block mainbarcontent %}
+<h2>About YCP</h2>
+<p><img src="{{STATIC_URL}}img/logo-big.png" title="Consortium For Progress" width="150" height="150" class="inline-image lfloat" />Consortium for Progress is a network of young people across the globe committed to progress through hardwork, honesty and initiative and to sharing progressive ideas, learning from one another and pooling resources to provide mentorship and support to youths who might be facing several challenges in their pursuit of excellence. As a network, CFP welcomes youths from all corners of the globe who are interested in being agents of change and in inspiring other youths around the world to rise up to the challenge.</p>
+      
+<p>Youth Consortium for Progress (YCP) is  a non-profit organisation registered in the Gambia with five Gambian officials and an international leadership team of seven members from across the continent of Africa and the globe. YCP also has members, youth represemtatives and country representatives from over sixteen countries in Africa. In the cross-cultural exchange fashion of communication that the larger CFP network affords, these youths are pooling resources to provide mentorship and skills training to youths resident in the suburb of Latrikunda German in Gambia’s largest city, Serrekunda and Serrekunda to other cities and communities across the African continent and the globe. Through awareness programs, seminars and training programs and other initiatives, YCP hopes to inspire these youths to be agents of change in their community and writers of their own futures. YCP also organizes scholarships, essay writing and entrepreneurship competitions and provides information to members about other opportunities around the world of which they can take advantage . YCP is committed to promoting education and economic development among youths . It is founded on the belief that youths can make a difference in their personal and professional lives as well as in their communities. At YCP, we believe that with initiative, hard work and honesty, impossible is indeed possible.</p>
+
+<p>Some of our key objectives are to:</p>
+      
+<ol>
+  <li>Create and sustain a network of youth committed to building up and supporting one another and working together to develop their society.</li>
+  
+  <li>Provide avenues for youth to express themselves, learn from one another about the major issues impacting their societies, articulate the challenges and address the constraints to peace and development in Latrikunda German by sharing information, experience, knowledge, skills, research findings, best practices and lessons learnt from projects, in order to raise community awareness on personal development, peace building and development issues.</li>
+  
+  <li>Encourage and motivate African youths to pursue formal education and thereby reduce the rate of student dropout from schools in the country.</li>
+  
+  <li>Encourage youth initiatives aimed at promoting personal and community development, as well as social harmony, peace and economic development.</li>
+  
+  <li>Organize and motivate the youth to participate in community development programs in conjunction with other development organizations.</li>
+  
+  <li>Empower Gambian and African youths to pursue their dreams through the provision of courses on career counseling, entrepreneurship training and the development of writing skills.</li>
+  
+  <li>Promote the attitudes of hard work, dignity of labor and integrity among youth. Support the integration of the youths of Latrikunda German into the National Youth Council and other African youths to their corresponding national youth bodies so that their concerns can be brought to the fore of national developmental discourse.</li>
+  
+  <li>If you are a Gambian, an African, or a young driven individidual and want to become a member of the YCP group, <a href="{% url 'contact' %}">contact us<a></li>
+</ol>
+
+
+{% endblock %}

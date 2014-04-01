@@ -1,0 +1,54 @@
+{% extends "blog/posts.html" %}
+
+{% block pageheadingtext %}Post Archives{% endblock %}
+
+{% block content %}
+
+{% block archivesyear %}
+<div class="post snippet archive year">
+  <div class="arrow"></div>
+  <h2>Archives By Year</h2>
+  {% for y in years %}
+  <a href="{% url 'postArchivesYear' y|date:'Y' %}" title="{{y|date:'Y'}}">
+    {{y|date:'Y'}}</a>
+  {% endfor %}
+  <div class="clear"></div>
+</div>
+{% endblock %}
+
+
+<div class="post archive title">
+  <div class="arrow"></div>
+  <h2>{% block archivestitle %}{% if months %}Archives By Month{% else %}
+    Nothing Here{% endif %}{% endblock %}</h2>
+</div>
+
+
+<div class="archive subcontent">
+  {% block archivessubcontent %}
+  {% for m in months %}
+  <div class="post month">
+    <h3><a href="{% url 'postArchivesMonth' m.0|date:'Y' m.0|date:'m' %}">
+        {{m.0|date:"M Y"}}</a></h3>
+    <div class="meta">
+      <span class="posts-count">
+        <a href="{% url 'postArchivesMonth' m.0|date:'Y' m.0|date:'m' %}">
+          {{m.1|length}} article{{m.1|length|pluralize}}</a></span>
+    </div>
+    
+    <ul class="posts">
+      {% for post in m.1 %}
+      <li><a href="{% url 'postDetail' post.id %}">
+          {% if post.title %}{{post.title}}{% else %}untitled post{% endif %}
+      </a></li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endfor %}
+  {% endblock %}
+</div>
+
+{% include 'navpage.html' %}
+
+
+{% endblock %}

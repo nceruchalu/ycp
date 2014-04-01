@@ -1,0 +1,11 @@
+{% extends "form.html" %}
+
+{% block pageheadingtext %}Photo Upload Form{% endblock %}
+{% block ribbonnavurls %}
+<a href="{% url 'photoUploadUrl' %}"
+   {% if nav_current == 'url' %}class="current"{% endif %}>
+  <span>Use URL</span></a>
+<a href="{% url 'photoUpload' %}"
+   {% if nav_current == 'file' %}class="current"{% endif %}>
+  <span>Use File</span></a>
+{% endblock %}

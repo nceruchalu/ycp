@@ -1,0 +1,4 @@
+{% if object.is_public %}
+{{object.title}}
+{{object.content|striptags}}
+{% endif %}

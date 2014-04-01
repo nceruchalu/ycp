@@ -1,0 +1,9 @@
+{% extends "headfoot.html" %}
+
+{% block pageheadingtext %}Comment Preview{% endblock %}
+
+{% block content %}
+<div class="form-preview"> <!-- wrapper for edit/upload -->
+{% include "comments/form-content.html" %}
+</div>
+{% endblock %}

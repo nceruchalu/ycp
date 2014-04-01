@@ -1,0 +1,48 @@
+{% load comments %}
+
+<div class="form-errors">
+  {% if form.errors %}
+  <p>Please correct the error{{ form.errors|pluralize }} below.</p>
+  {% endif %}
+</div>
+  
+<form action="{% comment_form_target %}" method="post" class="comment-form">
+  {% csrf_token %}
+  
+  <div class="form-field-wrapper input"> <!-- name -->
+    {{form.name.errors}}
+    {{form.name.label_tag}}
+    <div class="clear"></div>{{form.name}}
+  </div>
+  
+  <div class="form-field-wrapper input"> <!-- email -->
+    {{form.email.errors}}
+    {{form.email.label_tag}}
+    <div class="clear"></div>{{form.email}}
+    <p class="help">{{form.email.help_text}}</p>
+  </div>
+  
+  <div class="form-field-wrapper input last"> <!-- URL -->
+    {{form.url.errors}}
+    {{form.url.label_tag}}
+    <div class="clear"></div>{{form.url}}
+  </div>
+  
+  <div class="form-field-wrapper textarea"> <!-- comment -->
+    {{form.comment.errors}}
+    {{form.comment.label_tag}}<div class="clear"></div>{{form.comment}}
+  </div>
+  <div class="clear"></div>
+  
+  <div class="hidden">{{form.honeypot}}</div>
+  {{form.content_type}}
+  {{form.object_pk}}
+  {{form.timestamp}}
+  {{form.security_hash}}
+  
+   <div class="form-field-wrapper submit">
+     <input type="hidden" name="next" value="{{next}}" />
+     <input type="submit" name="submit" value="Post">
+   </div>
+  <div class="clear"></div>
+</form>

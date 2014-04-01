@@ -1,0 +1,30 @@
+{% extends "headfoot.html" %}
+{% block pagetype %}staticpage{% endblock %}
+
+{% block pageheadingtext %}About YCP{% endblock %}
+
+{% block content %}
+<div class="staticpage">
+  <div id="sidebar">
+    <a href="{% url 'homepage' %}" title="YCP" class="logo font-thin">
+      <span>Consortium For Progress</span>
+    </a>
+    
+    <ul class="font-thin">
+      {% block sidebarmenu %}
+      {% endblock %}
+    </ul>
+  </div>
+  
+  <div id="mainbar">
+    <div class="post">
+      <div class="arrow"></div>
+      {% block mainbarcontent %}
+      {% endblock %}
+    </div>
+  </div>
+  
+  <div class="clear"></div>
+
+</div>
+{% endblock %}

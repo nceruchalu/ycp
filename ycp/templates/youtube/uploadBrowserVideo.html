@@ -1,0 +1,57 @@
+{% extends "headfoot.html" %}
+
+{% block pageheadingtext %}Upload Video File{% endblock %}
+
+{% block content %}
+<script type="text/javascript">
+  function checkForFile() {
+    if (document.getElementById('id_file').value) {
+      return true;
+    }
+    document.getElementById('errMsg').style.display = '';
+    return false;
+  }
+</script>
+<div class="form-edit-upload"> <!-- wrapper for edit/upload -->
+<p class="instruction">
+  upload any of following file types: .mov, .mpeg4, .avi, .wmv, .mpegps, .flv
+</p>
+<form action="{{post_url}}?nexturl={{next_url}}"
+      method="post"
+      enctype="multipart/form-data" onsubmit="return checkForFile();">
+  <div class="form-field-wrapper">
+    <p id="errMsg" style="display:none;" class="errorlist">
+      You need to specify a file.</p>
+    <label for="id_file">Video</label>
+    <input id="id_file" type="file" name="file"/>
+    
+  </div>
+  <input type="hidden" name="token" value="{{youtube_token}}"/>
+  <input type="submit" value="go" id="uploadButton" disabled/>
+</form>
+
+</div> <!-- end form-edit-upload -->
+
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+$('INPUT[type="file"]').change(function () {
+    var ext = this.value.split('.').pop().toLowerCase();
+    switch (ext) {
+        case 'mov':
+        case 'mpeg4':
+        case 'avi':
+        case 'wmv':
+        case 'mpegps':
+        case 'flv':
+            $('#uploadButton').attr('disabled', false);
+            break;
+        default:
+            $('#uploadButton').attr('disabled', true);
+            alert('This is not an allowed file type.');
+            this.value = '';
+    }
+});
+</script>
+{% endblock %}

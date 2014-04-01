@@ -1,0 +1,13 @@
+  {% for c in comments %}
+  <li class="comment">
+    <span class="text">{{c.comment}}</span>
+    <span class="meta">
+      <span class="user"><span class="icon"></span>
+        {% if c.user_url %}<a href="{{c.user_url}}" target="_blank">{% endif %}
+          {{c.user_name}}
+          {% if c.user_url %}</a>{% endif %}
+      </span> <!-- end .user -->
+      <span class="created">Posted {{c.submit_date|date:"d M y"}}</span>
+    </span> <!-- end .meta -->
+  </li>
+  {% endfor %}

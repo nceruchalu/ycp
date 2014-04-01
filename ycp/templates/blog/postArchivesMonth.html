@@ -1,0 +1,32 @@
+{% extends "blog/postArchives.html" %}
+{% load comments %}
+
+{% block archivesyear %}{% endblock %}
+{% block archivestitle %}Posted {{date|date:"F Y"}}{% endblock %}
+
+{% block archivessubcontent %}
+{% for post in posts %}
+<div class="post month">
+  <h3>
+    <a href="{% url 'postDetail' post.id %}"
+       title="Permanent Link to {{post.title}}">
+      {{post.title}}</a></h3>
+  <div class="meta">
+    <span class="created">
+      <a href="{% url 'postArchivesMonth' post.created|date:'Y' post.created|date:'m' %}"
+         >Posted {{post.created|date:"d M y"}}</a>
+      by {% if post.user.get_full_name %}{{post.user.get_full_name}}{% else %}
+      {{post.user.get_username }}{% endif %}</span>
+    <span class="comments-count">
+      {% get_comment_count for post as comment_count %}
+      <a href="{% url 'postDetail' post.id %}#comments">{{comment_count}} comment{{comment_count|pluralize}}</a></span>
+    <span class="tags">Tags: 
+      {% for tag in post.tags.all %}
+      <a href="{% url 'tagDetails' tag %}">
+        {{tag}}</a>{% if not forloop.last %},{% endif %}
+      {% endfor %}
+    </span>
+  </div>
+</div>
+{% endfor %}
+{% endblock %}

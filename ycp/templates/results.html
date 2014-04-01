@@ -1,0 +1,76 @@
+{% extends "headfoot.html" %}
+
+{% load comments %}
+
+{% block pageheadingtext %}Results {% endblock %}
+
+{% block content %}
+{% block beforeresults %}{% endblock %}
+<div id="results">
+  
+  {% for item in results %}
+  {% with cname=item.get_cname %}
+  <div class="result post">
+    {% if cname == 'photo' %} <!-- a photo -->
+    <a class="image" href="{% url 'mediaDetail' item.media.id %}">
+      <img src="{{item.smallthumbnail.url}}" alt="photo" width="90" 
+           height="62" />
+    </a>
+    {% else %}
+    
+      {% if cname == 'video' %} <!-- a video -->
+      <a class="image" href="{% url 'mediaDetail' item.media.id %}">
+        <span class="video-icon"></span>
+        <img src="{{item.small_thumbnail.url}}" alt="video" width="90"
+             height="62" />
+      </a>
+      {% else %}
+      
+      <!-- must be a blog post -->
+      {% endif %}
+        
+    {% endif %}
+    
+    
+    <div class="information i{{cname}}">
+    
+    <!-- title -->  
+    <h2><a href="{% if cname == 'post' %}{% url 'postDetail' item.id %}{% else %}{% url 'mediaDetail' item.media.id %}{%endif%}">
+        {{item.title}}</a></h2>
+    
+    <div class="meta">
+      <span class="created"><span class="icon"></span>
+        {% if cname == 'post' %}<a href="{% url 'postArchivesMonth' item.created|date:'Y' item.created|date:'m' %}">{% endif %}
+          Posted {{item.created|date:"d M y"}}
+        {% if cname == 'post' %}</a>{% endif %}
+        
+        by {% if item.user.get_full_name %}{{item.user.get_full_name}}{% else %}
+        {{item.user.get_username }}{% endif %}
+      </span>
+      <span class="comments-count"><span class="icon"></span>
+        {% get_comment_count for item as comment_count %}
+        <a href="{% if cname == 'post' %}{% url 'postDetail' item.id %}{% else %}{% url 'mediaDetail' item.media.id %}{%endif%}#comments">{{comment_count}} comment{{comment_count|pluralize}}</a></span>
+      <span class="tags"><span class="icon"></span>Tags:
+        {% for tag in item.tags.all %}
+        <a href="{% url 'tagDetails' tag %}">
+          {{tag}}</a>{% if not forloop.last %},{% endif %}
+        {% endfor %}
+      </span>
+    </div> <!-- end .meta -->
+    
+    
+    
+    </div> <!-- end .information -->
+    <div class="clear"></div>
+    
+    
+  </div> <!-- end .result -->
+  {% endwith %}
+  {% endfor %}
+</div> <!-- #end results-->
+
+{% block navpage_results %}
+{% include 'navpage.html' %}
+{% endblock %}
+
+{% endblock %}

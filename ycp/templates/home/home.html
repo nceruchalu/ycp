@@ -1,0 +1,123 @@
+{% extends "headfoot.html" %}
+
+{% block header %}
+<div class="titleline1"></div>
+<p class="font-thin title">WELCOME TO A NEXUS</p>
+<div class="titleline2"></div>
+<p class="font-thin banner">POWERED BY YOUTH</p>
+
+<p class="banner-sub"> 
+  EDUCATION, ENTREPRENEURSHIP & ACTIVISM - PROGRESS, DRIVEN BY INITIATIVE.
+</p>
+
+<p class="banner-comment">
+  At YCP, we believe that with initiative, hard work and honesty, impossible is indeed possible.</p>
+
+{% endblock %}
+
+{% block pageheading %}{% endblock %}
+
+{% block content %}
+<div class="ribbon-wrapper">
+  <p class="ribbon font-thin"><span class="ribbon-content">
+      LEARN MORE ABOUT US AND WHAT WE DO</span></p>
+</div>
+
+<!-- Site Navigation -->
+<div id="page-icons">
+  <a id="about-icon" href="{% url 'about' %}">
+    <span class="img icon"></span>
+    <span class="text">About Us. Learn more about who we are and what we do.
+    </span>
+  </a>
+  <div id="about-line" class="line"></div>
+  
+  <a id="projects-icon" href="{% url 'cheetahradio' %}">
+    <span class="img icon"></span>
+    <span class="text">Our Projects. Check out what we do. This might inspire
+      you to join us.</span>
+  </a>
+  <div id="projects-line" class="line"></div>
+  
+  <a id="posts-icon" href="{% url 'posts' %}">
+    <span class="img icon"></span>
+    <span class="text">Notes. Sharing our thoughts on all
+      things education, entrepreneurship & activism</span>
+  </a>
+  <div id="posts-line" class="line"></div>
+  
+  <a id="photos-icon" href="{% url 'mediaLibrary' %}">
+    <span class="img icon"></span>
+    <span class="text">Our photo-stories. See our projects and acivities in 
+      action</span>
+  </a>
+  <div id="photos-line" class="line"></div>
+    
+  <a id="getinvolved-icon" href="{% url 'getinvolved' %}">
+    <span class="img icon"></span>
+    <span class="text">Get involved. Learn how to join us in making our 
+      communities better.</span>
+  </a>
+  <div id="getinvolved-line" class="line"></div>
+  
+  <div class="globe-half icon"></div>
+</div>
+
+<hr class="double"/>
+
+<div id="posts-updates">
+  <!-- Recent Blogposts -->
+  <div id="recent-posts">
+    <span class="heading font-thin">
+      WHAT'S NEW?<span class="icon arrow-right"></span></span>
+    <div class="heading-arrow-body"></div>
+    <span class="heading-arrow"></span>
+    {% for post in posts %}
+    <div class="blog-snippet">
+      <p class="ribbon-title font-thin">
+        <a href="{% url 'postDetail' post.id %}">
+          {{post.title|truncatechars:45}}</a></p>
+      <div class="ribbon-content">
+        {{post.content|safe|truncatewords_html:30}}</div>
+    </div> <!-- end .blog-snippet -->
+    {% endfor %}
+  </div> <!-- end #recent-posts -->
+  
+
+  <!-- Updates: random selection of pictures -->
+  <div id="updates">
+    <div class="titleline1"></div>
+    <p class="heading font-thin">RECENT PHOTOS</p>
+    <div class="titleline2"></div>
+    
+    <!-- slider -->
+    <div class="slider-wrapper nivo-theme-light">
+      <div id="slider" class="nivoSlider">
+        {% for photo in photos %}
+        <a href="{% url 'mediaLibrary' %}" >
+          <img src="{{photo.slider.url}}" alt=""
+               title="{{photo.title}}" /></a>
+        {% endfor %}
+      </div> <!-- end #slider -->
+      
+      <div id="htmlcaption" class="nivo-html-caption">
+        <strong>This</strong> is an example of a <em>HTML</em> caption with
+        <a href="javascript:;">a link. set title="#htmlcaption"</a>. 
+      </div>
+    
+    </div> <!-- end .slider-wrapper -->
+    
+    
+  </div> <!-- end #updates -->
+  
+</div> <!-- end #posts-updates -->
+
+<div class="clear"></div>
+
+{% endblock %}
+
+
+{% block javascript %}
+<script type="text/javascript"
+        src="{{STATIC_URL}}js/jquery.nivo.slider.pack.js"></script>
+{% endblock %}

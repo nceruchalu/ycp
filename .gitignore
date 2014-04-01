@@ -1,0 +1,16 @@
+*.pyc
+*~
+*.jgz
+*.gz
+*.DS_Store
+
+whoosh/
+compressed/
+media/
+
+ycp/settings_secret.py
+
+ycp/static/ckeditor/*
+!ycp/static/ckeditor/plugins/
+ycp/static/ckeditor/plugins/*
+!ycp/static/ckeditor/plugins/youtube/

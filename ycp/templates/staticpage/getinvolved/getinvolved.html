@@ -1,0 +1,63 @@
+{% extends "staticpage/generic.html"  %}
+
+{% block pageheadingtext %}Get Involved{% endblock %}
+
+{% block sidebarmenu %}
+<li><a href="{% url 'getinvolved' %}"
+       {% if currentnav == 'getinvolved' %}class="current"{% endif %}>
+    Get Involved</a></li>
+<li><a href="{% url 'scholarships' %}" 
+       {% if currentnav == 'scholarships' %}class="current"{% endif %}>
+    Scholarships</a></li>
+<li><a href="{% url 'cfpchallenge' %}" 
+       {% if currentnav == 'cfpchallenge' %}class="current"{% endif %}>
+    The CFP Challenge</a></li>
+<li><a href="{% url 'trainingprograms' %}"
+       {% if currentnav == 'trainingprograms' %}class="current"{% endif %}>
+    Training Programs</a></li>
+<li><a href="{% url 'consortiumbasket' %}" 
+       {% if currentnav == 'consortiumbasket' %}class="current"{% endif %}>
+    Consortium Basket</a></li>
+<li><a href="{% url 'grassrootprojects' %}" 
+       {% if currentnav == 'grassrootprojects' %}class="current"{% endif %}>
+    Grassroot Projects</a></li>
+
+{% endblock %}
+
+{% block mainbarcontent %}
+<h2>Get Involved</h2>
+<p>YCP is a network by young people for young people. The best way to join the movement is to take the initiative and go forth in the direction of your dreams. YCP youths strive for progress, knowledge and success because we believe that the world we desire is possible, real and ours.</p>
+
+<p>However, there are other ways to be part of the movement:</p>
+
+<ol>
+  <li>
+    <p>Memberships: You can become a member of the CFP network or a registered member of YCP. This helps you keep abreast of the progressive ideas that YCP are exchanging with one another as well as the initiatives that YCP youths are involved in.</p>
+    
+    <p>For YCP Gambian members, this is how membership works:
+We usually encourage memberships in groups, so if a drama group wants to become a member of YCP, everyone in that group becomes a member. Or if a school group want to become a member, people can join YCP under their school group. But if a member wants to join individually, it can be worked out and the person can later join an existing YCP group.</p>
+
+    <p>Anyone that fills the form and joins YCP is a member. Members can participate in YCP events: seminars, panel discussions etc.</p>
+    
+    <p>Once a member registers for a training program, the member becomes a YCP scholar. YCP scholars can take the English training program and the leadership training program and they can also participate in essay competitions and entrepreneurship competitions.</p>
+
+    <p>Once a YCP scholar completes a training program with distinction, the scholar becomes an ambassador. Ambassadors have the opportunity to take other international and regional courses in different fields such as health, human rights, community development, peace building, advocacy etc some of which will be fully sponsored by YCP. Ambassadors may also be chosen by YCP for internships or fellowships and can also be chosen to represent YCP at youth events and forums.</p>
+    
+    <p>Exceptional YCP Ambassadors who have demonstrated remarkable leadership skills will be recognised as YCP Cheetahs during our annual awards ceremony.</p>
+  </li>
+
+  
+  <li>YCP Diaspora team: Are you a young African living in the diaspora? Join YCP team to participate indirectly in YCP field projects, network with other youths who are passionate about Africa and provide assistance to and support for the YCP initiative.</li>
+  
+  <li>Administration/Volunteerism: You can join YCP’s administrative team by becoming a tutor or by assisting in the administration of one of YCP training programs on English grammar, leadership or human rights. These programs help members of the organisation to improve their speaking and writing skills and learn about youth activism across the globe. Our more academic programs provide mini-courses on African history, international development and human rights. By joining the administrative team, you will be grading the assignments of fellow youths who are enrolled in the training program and assisting them in understanding the concepts that are being taught. Administrators must be very proficient in the English language and must be university graduates or enrolled in a four-year degree program at any university. No extensive knowledge of history or development is required as our more experienced staff will give the volunteers a thorough orientation into the project and will be in charge of the more academic programs.</li>
+  
+  <li>Fellowships: We are currently working on a fellowship program for those interested in education. Details will be provided soon.</li>
+  
+  <li>Sponsorships/Donations: Are you impressed with YCP work? Do you identify with YCP’s objectives? Do you want to provide material support to the organisation as a young student with a small budget or as a large company or NGO with less financial constraints? Send us an email and we will let you know what our needs are and how you can meet them.</li>
+  
+  <li>Partnerships: Are you a youth organisation or an organisation committed to development? Partner with us, support our project  and have us support yours. At YCP, we believe that unity is strength. As partners, we will also exchange in dialogues about our projects in order to share best practices and progressive ideas, learn from one another and keep each other accountable.</li>
+</ol>
+
+<p>To get involved in one or more ways, <a href="{% url 'contact' %}">contact us</a></p>
+
+{% endblock %}

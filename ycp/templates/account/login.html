@@ -1,0 +1,10 @@
+{% extends "form.html" %}
+
+{% block pageheadingtext %}Login Page{% endblock %}
+
+{% block afterform %}
+<a href="{% url 'acct_password_reset' %}" class="rfloat">
+  Forgot Password?</a><br/>
+<a href="{% url 'acct_password_change' %}" class="rfloat">
+  Change Password</a><br/>
+{% endblock %}

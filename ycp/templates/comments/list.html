@@ -1,0 +1,9 @@
+<ul class="commentslist">
+  {% include "comments/list-contents.html" %}
+</ul>
+{% if next_page %}
+<button type="button" class="more" id="more-comments"
+        data-url="{{request.get_path}}?page={{next_page}}">VIEW MORE
+</button>
+{% endif %}
+

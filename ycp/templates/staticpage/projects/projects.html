@@ -1,0 +1,16 @@
+{% extends "staticpage/generic.html"  %}
+
+{% block pageheadingtext %}Projects{% endblock %}
+
+{% block sidebarmenu %}
+<li><a href="{% url 'cheetahradio' %}"
+       {% if currentnav == 'cheetahradio' %}class="current"{% endif %}>
+    Cheetah Radio</a></li>
+<li><a href="{% url 'innovationinfluence' %}" 
+       {% if currentnav == 'innovationinfluence' %}class="current"{% endif %}>
+    Innovation Influence</a></li>
+{% endblock %}
+
+{% block mainbarcontent %}
+
+{% endblock %}

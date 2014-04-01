@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:fb="https://www.facebook.com/2008/fbml"
+      xmlns:fb="http://ogp.me/ns#" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta property="og:image"
+        content="{% block ogimage %}{{STATIC_URL}}img/logo-big.png{% endblock %}" />
+  
+  <link href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz"
+        rel="stylesheet" type="text/css">
+  <link href="http://fonts.googleapis.com/css?family=Raleway:300,700"
+        rel="stylesheet" type="text/css">
+  
+  <link rel="search" type="application/opensearchdescription+xml" 
+        href="{% url 'opensearch' %}" title="YCP">
+  
+  {% if user.is_authenticated %}
+  <link rel="stylesheet" type="text/css"
+        href="{{STATIC_URL}}css/apprise-v2.css" />
+  {% endif %}
+  
+  <link rel="stylesheet" type="text/css"
+        href="{{STATIC_URL}}css/global.css" />
+  <link rel="shortcut icon" type="image/x-icon"
+        href="{{STATIC_URL}}img/favicon.ico" />
+  <title>{% block title%}{% endblock %}Youth Consortium for Progress</title>
+  {% block htmlhead %}
+  {% endblock %}
+</head>
+
+<body>
+  <div id="container" class="{% block pagetype %}{{pagetype}}{% endblock %}">
+    
+    <div id="header">
+      {% block header %}
+      <a class="home-icon icon" href="{% url 'homepage' %}">
+        <span>home</span></a>
+      <a class="about-icon icon" href="{% url 'about' %}">
+        <span>about</span></a>
+      <a class="projects-icon icon" href="{% url 'cheetahradio' %}">
+        <span>projects</span></a>
+      <a class="posts-icon icon" href="{% url 'posts' %}">
+        <span>posts</span></a>
+      <a class="photos-icon icon" href="{% url 'mediaLibrary' %}">
+        <span>media</span></a>
+      <a class="getinvolved-icon icon" href="{% url 'getinvolved' %}">
+        <span>join us</span></a>
+      {% if user.is_authenticated %}
+      <a class="logout-icon icon" href="{% url 'logout' %}">
+        <span>logout</span></a>
+      {% else %}
+      <a class="login-icon icon" href="{% url 'login' %}">
+        <span>login</span></a>
+      {% endif %}
+      
+      <!-- search bar -->
+      <form id="search_bar" action="{% url 'search' %}" method="get"
+            title="search">
+        <input type="text" name="q" id="id_q" placeholder="search..." /> 
+        <button type="submit" class="search-icon icon"></button>
+      </form>
+      
+      <div class="clear"></div>
+      {% endblock %}
+    </div> <!-- end header -->
+    
+    {% if messages %}
+    <ul class="messagelist">
+      {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+        <span class="icon"></span>{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    
+      
+    <div id="content">
+      {% block pageheading %}
+      <div class="page-heading">
+        <span class="line embossed left"></span>
+        <span class="text font-thin">
+          {% if page_heading %}{{page_heading}}
+          {% else %}{% block pageheadingtext %}YCP Page{% endblock %}
+          {% endif %}</span>
+        <span class="line embossed right"></span>
+        
+        {% if user.is_authenticated and addbutton %}
+        <div class="addbutton">
+          <div class="add-icon icon"></div>
+          <div class="dropdownContain">
+            <div class="dropOut">
+              <div class="triangle"></div>
+              <ul>
+                {% if addbutton == 'media' %}
+                  {% if perms.photo.add_photo %}
+                  <li><a href="{% url 'photoUpload' %}">Add Photo</a></li>
+                  {% endif %}
+                  {% if perms.youtube.add_video %}
+                  <li><a href="{% url 'youtubeUploadBrowser' %}">
+                      Add Video</a></li>
+                  {% endif %}
+                  {% if perms.media.add_gallery and perms.photo.add_photo %}
+                  <li><a href="{% url 'mediaUploadZip' %}">Upload Zip</a></li>
+                  {% endif %}
+                  {% if perms.media.add_gallery %}
+                  <li><a href="{% url 'mediaGalleryCreate' %}">
+                      Create Gallery</a></li>
+                  {% endif %}
+                {% endif %}
+                  
+                {% if addbutton == 'blog' %}  
+                  {% if perms.blog.add_post %}
+                  <li><a href="{% url 'postCreate' %}">Add Post</a></li>
+                  <li><a href="{% url 'postDrafts' %}">View Drafts</a></li>
+                  {% endif %}
+                {% endif %}
+              </ul>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+        
+        {% block ribbonnav %}
+        <div class="ribbon-nav">
+          {% block ribbonnavurls %}
+          <!-- <a href="#thisisasample"
+               {% if nav_current == 'galleries' %}class="current"{% endif %}>
+               <span>Galleries</span></a> -->
+          {% endblock %} <!-- end ribbonnav urls -->
+          <div class="overhang"></div>
+        </div>
+        {% endblock %} <!-- end ribbonnav -->
+      
+      </div>
+      {% endblock %} <!-- end pageheading -->
+      
+      {% block content %}
+      {% endblock %}
+    </div> <!-- end content -->
+    
+    {% block footer %}
+    <div id="footer">
+      <hr class="double orange"/>
+      <div class="foot">
+        <a class="bigText" href="{% url 'homepage' %}">
+          <span class="icon footer-logo"></span>C<span class="smallText">F</span>P</a>
+        <a class="facebook-icon icon" target="_blank"
+           href="https://www.facebook.com/youthconsortium"></a>
+        <a class="twitter-icon icon" target="_blank"
+           href="https://twitter.com/youthconsortium"></a>
+        <a class="youtube-icon icon" href="javascript:;"></a>
+      </div>
+      <span class="subText font-thin"><a href="{% url 'cheetahradio' %}">EDUCATION</a> &#8226; <a href="{% url 'innovationinfluence' %}">ENTREPRENEURSHIP</a> &#8226; <a href="{% url 'about' %}">ACTIVISM</a></span>
+            
+      <hr class="double orange end"/>
+    </div> <!-- end footer -->
+    {% endblock %}
+
+  </div> <!-- end #container -->
+  
+  
+  <!-- put js here -->
+  <script type="text/javascript" src="{{STATIC_URL}}js/jquery-1.9.0.min.js">
+  </script>
+  {% block javascript %}{% endblock %}
+  {% if user.is_authenticated %}
+  <script type="text/javascript" src="{{STATIC_URL}}js/apprise-v2.js"></script>
+  {% endif %}
+  <script type="text/javascript" src="{{STATIC_URL}}js/global.js"></script>
+  
+</body>
+
+</html>

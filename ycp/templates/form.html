@@ -1,0 +1,39 @@
+{% extends "headfoot.html" %}
+
+{% block pageheadingtext %}Edit/Upload Form{% endblock %}
+
+{% block content %}
+<div class="form-edit-upload"> <!-- wrapper for edit/upload -->
+
+  <div class="form-errors">
+    {% if form.errors %}
+    <p>Please correct the error{{ form.errors|pluralize }} below.</p>
+    {% endif %}
+  </div>
+  
+  <form action="" method="post"
+        {% if form.is_multipart %}enctype="multipart/form-data"{% endif %}>
+    {% csrf_token %}
+    {% for field in form %}
+    <div class="form-field-wrapper">
+      {{field.errors}}
+      {{field.label_tag}} {{field}}
+      <p class="help">{{field.help_text}}</p>
+    </div>
+    {% endfor %}
+        
+    {% for field in form2 %}
+    <!-- if form2 then it's additional data to supplement the main form -->
+    <div class="form-field-wrapper">
+      {{field.errors}}
+      {{field.label_tag}} {{field}}
+    </div>
+    {% endfor %}
+    
+    <input type="submit" value="Submit">
+  </form>
+  
+  {% block afterform %}{% endblock %}
+
+</div> <!-- end form-edit-upload -->
+{% endblock %}

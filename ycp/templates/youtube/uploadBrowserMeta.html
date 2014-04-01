@@ -1,0 +1,12 @@
+{% extends "form.html" %}
+
+{% block pageheadingtext %}Enter Video Metadata{% endblock %}
+
+{% block ribbonnavurls %}
+<a href="{% url 'youtubeUploadUrl' %}"
+   {% if nav_current == 'url' %}class="current"{% endif %}>
+  <span>Use URL</span></a>
+<a href="{% url 'youtubeUploadBrowser' %}"
+   {% if nav_current == 'file' %}class="current"{% endif %}>
+  <span>Use File</span></a>
+{% endblock %}

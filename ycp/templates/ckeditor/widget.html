@@ -1,0 +1,16 @@
+<textarea{{final_attrs|safe}}>{{value}}</textarea>
+<script type="text/javascript">
+    CKEDITOR.replace("{{id}}", {{config|safe}});
+    
+    // because using deprecated tags is ridiculous
+    CKEDITOR.config.coreStyles_strike = {
+        element: 'span',
+        attributes: { 'class': 'StrikeThrough' },
+        overrides: 'strike'
+    };
+    
+    CKEDITOR.config.coreStyles_underline = {
+        element: 'span',
+        attributes: { 'class': 'Underline' }
+    };
+</script>

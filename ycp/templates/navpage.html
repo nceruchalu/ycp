@@ -1,0 +1,14 @@
+<div class="nav-page">
+  <!-- in this case, prev_page == newer content, and next_page == older -->
+  {% block navpage %}
+  {% if prev_page %}
+  <a href="{{request.get_path}}?page={{prev_page}}" class="nexttext"
+     title="next page">Newer<span class="icon next"></span></a>
+  {% endif %}
+  {% if next_page %}
+  <a href="{{request.get_path}}?page={{next_page}}" class="prevtext"
+     title="previous page"><span class="icon prev"></span>Older</a>
+  {% endif %}
+  {% endblock %}
+</div>
+<div class="clear"></div>

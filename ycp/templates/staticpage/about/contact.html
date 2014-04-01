@@ -1,0 +1,38 @@
+{% extends "staticpage/about/about.html" %}
+
+{% block pageheadingtext %}Contact Us{% endblock %}
+
+{% block mainbarcontent %}
+<h2>Contact Us</h2>
+<p>For more information about our work and to partner with us or get involved , send an email to <a href="mailto:info@{{SITE_DOMAIN}}">info@{{SITE_DOMAIN}}</a></p>
+<p>Or fill the form below </p>
+
+<div class="form-edit-upload">
+
+  {% if success %}
+  <p class="success msg">
+    Thank you for emailing us. We will get back to you shortly.</p>
+  {% endif %}
+    
+  <div class="form-errors">
+    {% if form.errors %}
+    <p>Please correct the error{{ form.errors|pluralize }} below.</p>
+    {% endif %}
+  </div>
+
+  <form action="" method="post">
+    {% csrf_token %}
+    {% for field in form %}
+    <div class="form-field-wrapper">
+      {{field.errors}}
+      {{field.label_tag}} {{field}}
+      <p class="help">{{field.help_text}}</p>
+    </div>
+    {% endfor %}
+  
+    <input type="submit" value="Submit">
+  </form>
+  
+</div>
+
+{% endblock %}
