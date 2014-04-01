@@ -1,0 +1,136 @@
+{% extends "headfoot.html" %}
+
+{% load comments %}
+
+{% block pageheadingtext %}Media{% endblock %}
+{% block ribbonnavurls %}
+<a href="{% url 'mediaGallery' %}"
+   {% if nav_current == 'galleries' %}class="current"{% endif %}>
+  <span>Galleries</span></a>
+<a href="{% url 'mediaLibrary' %}"
+   {% if nav_current == 'library' %}class="current"{% endif %}>
+  <span>Library</span></a>
+{% endblock %}
+
+{% block content %}
+
+
+{% if galleries_page %} <!-- a galleries page is different -->
+<div id="gallery">
+  {% for g in galleries %} 
+  <div class="thumbnail-detail">
+    
+    <a class="thumbnail" href="{% url 'mediaGalleryContent' g.id %}">
+      <img src="{{g.cover_photo.url}}"
+           width="218" height="150" alt="no media here yet"/>
+      <span class="caption">
+        <span class="title">{{g.title}}</span>{%if not g.title%}<br/>{% endif %}
+        <span class="metadata">{{g.media_count}} files</span>
+      </span>
+    </a> <!-- end thumbnail -->
+    
+  </div><!-- end thumbnail-detail-->
+  {% endfor %}
+       
+<div class="clear"></div>
+</div> <!-- end gallery -->
+
+
+{% else %} <!-- not a galleries_page -->
+<!-- expandable here is for javascript to know that thumbnails here expand -->
+<div id="gallery" class="expandable-thumbnails">
+  
+  {% if gallery_id %} <!-- this means we are inside a gallery -->
+  
+  <div class="icon-container gallerypage">
+      {% if perms.media.delete_gallery %}
+      <form action="{% url 'mediaGalleryDelete' gallery_id %}" method="post"
+            class="delete" title="delete gallery">
+        {% csrf_token %}
+        <button type="submit" class="delete-icon icon"></button>
+      </form>
+      {% endif %}
+      {% if perms.media.change_gallery %}
+      <a href="{% url 'mediaGalleryEdit' gallery_id %}" class="edit-icon icon"
+         title="edit gallery"></a>
+      {% endif %}
+      
+      <a href="javascript:;" class="share-icon button" title="share">Share
+        <span class="icon"></span></a>
+            
+      <div class="share-media"
+          data-url="{{SITE_URL}}{% url 'mediaGalleryContent' gallery_id %}"
+          data-title="{{page_heading}}">
+       <a href="javascript:;" class="share-icon icon facebook"></a>
+       <a href="javascript:;" class="share-icon icon twitter"></a>
+       <input type="text"
+              value="{{SITE_URL}}{% url 'mediaGalleryContent' gallery_id %}"
+              />
+      </div> <!-- end share-media -->
+      
+      <div class="clear"></div>
+    </div> <!-- end .icon-container -->
+  
+  {% endif %}
+
+  
+  {% for m in media %} 
+  <div class="thumbnail-detail">
+    
+    <a class="thumbnail" href="javascript:;"
+       data-type="{% if m.video %}video{% else %}photo{%endif%}"
+       data-url="{% if m.video %}{% url 'mediaVideoDetail' id=m.video.id %}{% else %}{% url 'mediaPhotoDetail' id=m.photo.id %}{% endif %}"
+       data-mid="{{m.mid}}"
+       data-mediaid="{{m.id}}"
+       data-created="{{m.created|date:'d M y'}}"
+       {% get_comment_count for m.object as comment_count %}
+       data-commentscount="{{comment_count}}">
+      {% if m.video %}
+      <span class="video-icon icon"></span>
+      {% endif %}
+      <img src="{{m.thumbnail.url}}" width="218" height="150" alt="thumbnail"/>
+      <span class="caption">
+        <span class="title">{{m.title}}</span>{%if not m.title%}<br/>{% endif %}
+        <span class="metadata">{{comment_count}} comment{{comment_count|pluralize}}</span>
+      </span>
+    </a> <!-- end thumbnail -->
+    
+  </div><!-- end thumbnail-detail-->
+  {% endfor %}
+  
+<div class="clear"></div>
+
+</div> <!-- end gallery -->
+{% endif %} <!-- endif galleries_page -->
+
+{% include 'navpage.html' %}
+
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+  var can_edit_photo = false,
+  can_delete_photo = false,
+  can_edit_video = false,
+  can_delete_video = false,
+  csrf_token = "{% csrf_token %}";
+  
+  {% if perms.photo.edit_photo %}
+  can_edit_photo = true;
+  {% endif %}
+  
+  {% if perms.photo.delete_photo %}
+  can_delete_photo = true;
+  {% endif %}
+  
+  {% if perms.youtube.edit_video %}
+  can_edit_video = true;
+  {% endif %}
+  
+  {% if perms.youtube.delete_video %}
+  can_delete_video = true;
+  {% endif %}
+  </script>
+{% endblock %}
+
+

@@ -1,0 +1,118 @@
+{% extends "media/gallery.html" %}
+
+{% block ogimage %}{{media.bigimage_url}}{% endblock %}
+
+{% block title %}{{media.title}} | {% endblock %}
+
+{% load comments %}
+
+{% block content %}
+<div class="media detail">
+  <div class="arrow"></div>
+  
+  <h2>{{media.title}}</h2>
+  
+  <div class="meta">
+    <span class="created"><span class="icon"></span>
+      Posted {{media.created|date:"d M y"}}
+      by {% if media.object.user.get_full_name %}
+           {{media.object.user.get_full_name}}
+         {% else %}{{media.object.user.get_username }}{% endif %}</span>
+    <span class="comments-count"><span class="icon"></span>
+      {% get_comment_count for media.object as comment_count %}
+      <a href="#comments">{{comment_count}} comment{{comment_count|pluralize}}</a></span>
+    <span class="tags"><span class="icon"></span>Tags:
+      {% for tag in media.tags %}
+      <a href="{% url 'tagDetails' tag %}">
+        {{tag}}</a>{% if not forloop.last %},{% endif %}
+      {% endfor %}
+    </span>
+  </div>
+  
+  <div class="content">
+    
+    {% if media.photo %}
+    <img src="{{ media.photo.get_absolute_url }}" alt="detailed image" />
+    {% else %}
+    <div class="youtube-player-wrapper">
+      <iframe class="youtube-player" type="text/html" width="640" height="360"
+              src="http://www.youtube.com/embed/{{ media.video.video_id }}"
+              frameborder="0" allowfullscreen>
+      </iframe>
+    </div>
+    {% endif %}
+    <p class="description">{{media.description}}</p>
+  </div>
+  
+  
+  <div class="icon-container">
+    {% if perms.photo.delete_photo and media.photo %}
+    <form action="{% url 'photoDelete'  media.mid %}" 
+          method="post" class="delete" title="delete photo">
+      {% csrf_token %}
+      <button type="submit" class="delete-icon icon"></button>
+    </form>
+    {% endif %}
+    {% if perms.youtube.delete_video and media.video %}
+    <form action="{% url 'youtubeDelete'  media.mid %}" 
+          method="post" class="delete" title="delete video">
+      {% csrf_token %}
+      <button type="submit" class="delete-icon icon"></button>
+    </form>
+    {% endif %}
+    
+    
+    {% if perms.photo.change_photo  and media.photo %}
+    <a href="{% url 'photoEdit' media.mid %}"
+       class="edit-icon icon" title="edit photo"></a>
+    {% endif %}
+    {% if perms.youtube.change_video  and media.video %}
+    <a href="{% url 'youtubeEdit' media.mid %}"
+       class="edit-icon icon" title="edit video"></a>
+    {% endif %}
+    
+    <a href="javascript:;" class="share-icon button" title="share">Share
+      <span class="icon"></span></a>
+     
+     <div class="share-media"
+          data-url="{{SITE_URL}}{% url 'mediaDetail' media.id %}"
+          data-title="{{media.title}}">
+       <a href="javascript:;" class="share-icon icon facebook"></a>
+       <a href="javascript:;" class="share-icon icon twitter"></a>
+       <input type="text"
+              value="{{SITE_URL}}{% url 'mediaDetail' media.id %}"
+              />
+     </div> <!-- end share-media -->
+     
+  </div> <!-- end .icon-container -->
+  
+</div> <!-- end post -->
+
+<div id="comments" class="comments-container">
+  <h2>Comments</h2>
+  {% with object=media.object %}
+  {% url 'mediaDetail' media.id as next %}
+  {% include "comments/form.html" %}
+  {% endwith %}
+  
+  {% include "comments/list.html" %}
+</div> <!-- end comments-->
+
+
+<div class="nav-page">
+  {% if next_media %}
+  <a href="{% url 'mediaDetail' next_media.id %}" class="nexttext"
+     title="next {% if next_media.video %}video{% else %}photo{% endif %}">
+  Next<span class="icon next"></span></a>
+  {% endif %}
+  {% if prev_media %}
+  <a href="{% url 'mediaDetail' prev_media.id %}" class="prevtext"
+     title="previous {% if prev_media.video %}video{% else %}photo{% endif %}">
+    <span class="icon prev"></span>Previous</a>
+  {% endif %}
+</div>
+<div class="clear"></div>
+
+{% endblock %}
+
+{% block javascript %}{% endblock %}

@@ -6,7 +6,7 @@
 
 whoosh/
 compressed/
-media/
+ycp/media/
 
 ycp/settings_secret.py
 
