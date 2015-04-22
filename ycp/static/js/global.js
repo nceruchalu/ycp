@@ -2,7 +2,7 @@ $(document).ready(function(){ // container for entire script
 
     // base domain should be "http://consortiumforprogress.com" but the domain
     // has been lost :(
-    var BASE_DOMAIN = "http://ycp.nceruchalu.webfactional.com";
+    var BASE_DOMAIN = "http://ycp.nnoduka.com";
     
     if($(".homepage").length > 0) { // ensure you are on homepage
         var icons = [
