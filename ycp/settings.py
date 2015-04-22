@@ -110,7 +110,7 @@ SITE_ID = 1
 # SITE_DOMAIN should be consortiumforprogress.com
 # using this to reduce the Sites framework db calls
 # ref: http://stackoverflow.com/a/8981537
-SITE_DOMAIN = 'ycp.nceruchalu.webfactional.com'
+SITE_DOMAIN = 'ycp.nnoduka.com'
 SITE_URL = 'http://'+SITE_DOMAIN
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
