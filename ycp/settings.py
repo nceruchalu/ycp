@@ -39,7 +39,7 @@ MANAGERS = ADMINS
 
 ALLOWED_HOSTS = ['www.consortiumforprogress.com', 'consortiumforprogress.com',
                  'www.ycpconsortium.org', 'ycpconsortium.org',
-                 'ycp.nceruchalu.webfactional.com']
+                 '.nceruchalu.webfactional.com', '.nnoduka.com']
 
 
 # Application definition
